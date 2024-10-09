@@ -20,6 +20,8 @@
     "mapbox-gl": "^3.7.0",
     "mongoose": "^8.7.0",
     "react-map-gl": "^7.1.7"
+    "react-router-dom": "^6.26.2",
+
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
