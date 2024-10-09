@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 export default async function connectDB() {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    // Replace process.env.MONGO_URI with the actual URI
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+
     console.log(
       `MongoDB Connected: ${conn.connection.host}, Database: ${conn.connection.name}`
     );
