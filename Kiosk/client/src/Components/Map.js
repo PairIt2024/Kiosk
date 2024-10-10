@@ -3,7 +3,8 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 //add token
-mapboxgl.accessToken = "";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiY29ubmllbHkyMDA0IiwiYSI6ImNtMjFxY3d4MTBhbGUya3E1Ymg1aGQxbzQifQ.r8GPHckSwIotDSC63LNTHA";
 
 const Map = () => {
   const mapContainer = useRef(null);
