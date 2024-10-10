@@ -1,29 +1,27 @@
-// server.js
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
+import express from 'express'
+import dotenv from 'dotenv'
+import connectdb from './config/db.js'
+import courseRoutes from './routes/courseRoutes.js'
 
-// app.use(express.static(path.join(__dirname, "client", "build")));
+//Load dotenv
+dotenv.config()
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
+console.log(process.env.MONGODB_URI);
 
-dotenv.config();
+//Connect to db
+connectdb();
 
+//Start express server
 const app = express();
-const PORT = process.env.PORT || 5001;
 
-app.use(cors());
+//Middleware
 app.use(express.json());
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from the Express server!" });
-});
+app.use('/courses', courseRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-console.log("Hello from the server!");
+
+
+
