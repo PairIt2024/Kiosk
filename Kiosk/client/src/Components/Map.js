@@ -39,28 +39,27 @@ export default function Map() {
             position.coords.latitude,
           ];
 
-          // Center the map on user's location and disable further map movement
+          //center map and stop moving animation
           map.current.setCenter(userCoordinates);
           map.current.setZoom(15);
 
-          // Add a marker at the user's location
+          //add marker for user's current location
           if (currentmarker.current) {
-            currentmarker.current.remove(); // Remove previous marker if it exists
+            currentmarker.current.remove();
           }
 
           currentmarker.current = new mapboxgl.Marker()
             .setLngLat(userCoordinates)
             .addTo(map.current);
 
-          // Disable all map movements
-          map.current.dragPan.disable(); // Disable map dragging
-          map.current.scrollZoom.disable(); // Disable zooming with scroll
-          map.current.doubleClickZoom.disable(); // Disable double-click zooming
-          map.current.boxZoom.disable(); // Disable zoom box
-          map.current.keyboard.disable(); // Disable keyboard controls
-          map.current.touchZoomRotate.disable(); // Disable pinch zoom
+          //disable all map movements
+          map.current.dragPan.disable();
+          map.current.scrollZoom.disable();
+          map.current.doubleClickZoom.disable();
+          map.current.boxZoom.disable();
+          map.current.keyboard.disable();
+          map.current.touchZoomRotate.disable();
 
-          // Set state to indicate location was retrieved
           setCurrentLocation(true);
         },
         (error) => {
@@ -73,7 +72,7 @@ export default function Map() {
   };
 
   return (
-    // set "Location Set" to the microphone button
+    //set "Location Set" to the microphone button
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
       <button
