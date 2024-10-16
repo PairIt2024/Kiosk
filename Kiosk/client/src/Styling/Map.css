@@ -1,0 +1,50 @@
+/* resize map */
+.container {
+  width: 74%;
+  height: 730px;
+  right: 50px;
+  margin-left: auto;
+  z-index: 1;
+  border: 10px solid #fccf75;
+}
+
+.start-button {
+  width: 20%;
+  height: 17%;
+  background-color: rgb(247, 205, 90);
+  font-size: larger;
+  color: white;
+  margin-left: 20%;
+}
+
+/* controls pairit title map and startbutton */
+.outercontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* 
+.marker::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 0, 0, 0.6);
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  animation: ping 1.5s infinite;
+  z-index: 0;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+} */

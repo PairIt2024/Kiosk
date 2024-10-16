@@ -1,0 +1,23 @@
+/* controls whole contianer with map and events */
+.home-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 80vh;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.title-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.event-container {
+  width: 30%;
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+}
