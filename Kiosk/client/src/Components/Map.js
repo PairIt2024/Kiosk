@@ -10,7 +10,7 @@ export default function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const currentmarker = useRef(null);
-  // currentmarker.className = "marker";
+  currentmarker.className = "marker";
   const [currentlocation, setCurrentLocation] = useState(false);
 
   useEffect(() => {
@@ -40,15 +40,22 @@ export default function Map() {
           ];
 
           //center map and stop moving animation
-          map.current.setCenter(userCoordinates);
-          map.current.setZoom(15);
+          
+          map.current.setZoom(16.3);
 
           //add marker for user's current location
           if (currentmarker.current) {
             currentmarker.current.remove();
           }
 
-          currentmarker.current = new mapboxgl.Marker()
+          const el = document.createElement("div");
+          el.className = "marker"; 
+
+          currentmarker.current = new mapboxgl.Marker({"color": "#ff0000"})
+            .setLngLat(userCoordinates)
+            .addTo(map.current);
+
+          currentmarker.current = new mapboxgl.Marker(el)
             .setLngLat(userCoordinates)
             .addTo(map.current);
 
