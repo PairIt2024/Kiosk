@@ -21,7 +21,7 @@ export default function Map() {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [-121.8811, 37.3352],
-      zoom: 16.3,
+      zoom: 16.4,
       bearing: -30.5,
       dragPan: false, //disable dragging
       scrollZoom: false, //disable zooming
@@ -41,7 +41,7 @@ export default function Map() {
 
           //center map and stop moving animation
           
-          map.current.setZoom(16.3);
+          map.current.setZoom(16.4);
 
           //add marker for user's current location
           if (currentmarker.current) {
