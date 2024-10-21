@@ -1,0 +1,34 @@
+.voice-recorder-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100vh;
+}
+
+.recording-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.record-button {
+  font-size: 80px;
+  color: red;
+}
+
+.not-record-button {
+  font-size: 80px;
+  color: rgb(135, 135, 135);
+}
+
+.mic-icon {
+  font-size: 40px;
+  position: absolute;
+  color: white;
+  margin-left: 20%;
+  top: 10;
+}
