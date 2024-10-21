@@ -1,21 +1,21 @@
 .style {
-  font-size: 40px;
+  font-size: 250%;
   font-weight: bold;
-  color: #ffffff;
+  color: #172f5e;
   /* margin-top: 10px;
   margin-bottom: 10px; */
   text-align: center;
-  font-family: "Roboto", sans-serif;
+  font-family: Tahoma, sans-serif;
   /* position: fixed; */
 }
 
 .eventtitlestyle {
-  font-size: 30px;
+  font-size: 200%;
   font-weight: bold;
-  color: #ffffff;
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
+  color: #172f5e;
+  margin-top: 13%;
+  margin-bottom: 5%;
   text-align: center;
-  font-family: "Roboto", sans-serif;
+  font-family: Tahoma, sans-serif;
   /* position: fixed; */
 }
