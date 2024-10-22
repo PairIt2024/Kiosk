@@ -32,8 +32,7 @@ export default function Map() {
     });
   }, []);
 
-  //get user's location
-  //only get location after a start button is pressed
+  //get user's location only get location after a start button is pressed
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -46,7 +45,6 @@ export default function Map() {
           //center map and stop moving animation
 
           map.current.setZoom(16.4);
-
 
           //add marker for user's current location
           if (currentmarker.current) {

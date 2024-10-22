@@ -105,7 +105,7 @@ export default function VoiceRecord() {
       </div>
 
       {/* {audioURL && <audio src={audioURL} controls />} debugging and downloading the audio */}
-      {transcript && <p>Transcript: {transcript}</p>}
+      {/* {transcript && <p>Transcript: {transcript}</p>} */}
     </div>
   );
 }
