@@ -1,34 +1,53 @@
 .voice-recorder-container {
-  display: flex;
+  display: fixed;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  height: 100vh;
 }
 
 .recording-button {
-  position: relative;
+  position: fixed;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.record-button {
-  font-size: 80px;
-  color: red;
+.radio-button {
+  font-size: 80px; /* Control size via CSS */
+  left: 0px;
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.not-record-button {
-  font-size: 80px;
-  color: rgb(135, 135, 135);
+.radio-button.recording {
+  color: red; /* Color when recording */
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 25%;
+  }
+} 
+
+.radio-button.not-recording {
+  color: #ffffff; /* Color when not recording */
 }
 
 .mic-icon {
-  font-size: 40px;
-  position: absolute;
-  color: white;
-  margin-left: 20%;
-  top: 10;
+  font-size: 50px; /* Control size via CSS */
+  position: fixed;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.mic-icon.recording {
+  color: red; /* Color when recording */
+}
+
+.mic-icon.not-recording {
+
+  color: white; /* Color when not recording */
 }
