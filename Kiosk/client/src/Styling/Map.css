@@ -15,15 +15,54 @@
   font-size: larger;
   font-family: Tahoma, sans-serif;
   color: white;
-  border: none; /* Removes default border */
+  border: 3px solid #172f5e; /* Removes default border */
   border-radius: 15px; /* Rounds the corners */
   margin-top: 0.5%;
   margin-bottom: 2%;
   margin-left: 5%;
+  transition-duration: 0.4s;
 }
 
+@keyframes shrink {
+  from{
+    width: 20%;
+    height: 40px;
+    border-radius: 15px;
+    margin-top: 0.5%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+  }
+  to{
+    font-size: small;
+    width: 60px; /* Adjust size to mic button size */
+    height: 60px; /* Adjust size to mic button size */
+    transform: translateX(10px) scale(0.5);
+    border-radius: 50%; /* Change to a circle */
+    opacity: 0; /* Fade out */
+
+  }
+}
+
+
+.start-button.shrink-animation {
+
+}
+
+.start-button.afterShrink
+{
+  animation: shrink 0.8s ease;
+}
+.start-button:active
+{
+  
+  transform: scale(0.8);
+  padding:15px 20px 15px 30px;
+}
+
+
 .start-button:hover {
-  background-color: #394e6f; /* Darker shade of the original color */
+  background-color: #eaeeff;
+  color: black /* Darker shade of the original color */
 }
 
 
@@ -49,6 +88,8 @@
   z-index: 0;
 }
 
+
+
 @keyframes ping {
   0% {
     transform: scale(0.5);
@@ -59,6 +100,5 @@
     opacity: 0;
   }
 } 
-
 
 
