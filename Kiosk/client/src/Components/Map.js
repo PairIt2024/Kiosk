@@ -9,10 +9,11 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function Map() {
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef(null); 
   const currentmarker = useRef(null);
   currentmarker.className = "marker";
   const [currentlocation, setCurrentLocation] = useState(false);
+  const [isShrinking, setIsShrinking] = useState(false);
 
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
@@ -71,8 +72,10 @@ export default function Map() {
           map.current.touchZoomRotate.disable();
 
           setCurrentLocation(true);
+          setIsShrinking(true);
           resetMapAndState();
         },
+
         (error) => {
           console.error("Error getting location:", error);
         }
@@ -103,9 +106,23 @@ export default function Map() {
       map.current.touchZoomRotate.disable();
 
       setCurrentLocation(false);
+      setIsShrinking(false);
     }, 60000);
   };
 
+  const handleButtonClick = () => {
+    // Trigger the location retrieval
+    getUserLocation();
+
+    // Add shrink animation class
+    setIsShrinking(true);
+
+    // Remove the shrink animation class after the animation duration
+    setTimeout(() => {
+      setIsShrinking(false);
+    }, 800); // Match this duration to your animation duration in CSS
+  };
+  
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
@@ -114,7 +131,14 @@ export default function Map() {
       {currentlocation ? (
         <VoiceRecord /> // Show microphone button when location is set
       ) : (
-        <button className="start-button" onClick={getUserLocation}>
+        <button
+        className={`start-button ${isShrinking ? "afterShrink" : ""}`} 
+        onClick={() => {
+          handleButtonClick();
+          getUserLocation();
+      }}
+         
+        >
           START
         </button>
       )}
