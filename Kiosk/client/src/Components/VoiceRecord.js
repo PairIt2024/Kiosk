@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import MicIcon from "@mui/icons-material/Mic";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import "../Styling/VoiceRecord.css";
 
 export default function VoiceRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -82,25 +83,12 @@ export default function VoiceRecord() {
     <div className="voice-recorder-container">
       <div className="recording-button" onClick={toggleRecording}>
         <RadioButtonUncheckedIcon
-          className="radio-button"
-          style={{
-            fontSize: 80,
-            color: isRecording ? "red" : "#ffffff",
-            position: "absolute",
-            zIndex: 1,
-            left: "66%",
-          }}
+          className={`radio-button ${isRecording ? "recording" : "not-recording"}`}
+          fontSize="100%"
         />
         <MicIcon
-          className="mic-icon"
-          style={{
-            fontSize: 40,
-            color: isRecording ? "red" : "white",
-            position: "absolute",
-            zIndex: 2,
-            left: "67.15%",
-            top: "92.6%",
-          }}
+          className={`mic-icon ${isRecording ? "recording" : "not-recording"}`}
+          fontSize="100%"
         />
       </div>
 

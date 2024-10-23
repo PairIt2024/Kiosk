@@ -1,34 +1,104 @@
-.voice-recorder-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  height: 100vh;
+  
+  .voice-recorder-container {
+    display: fixed;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+@keyframes appear
+{
+  from{
+    font-size: 10%;
+    opacity: 0;
+  }
+
+  to{
+    font-size: 100%;
+    opacity: 1;
+  }
 }
 
-.recording-button {
-  position: relative;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .recording-button {
+    position: relative;
+    left: 40px;
+    height: 70px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.record-button {
-  font-size: 80px;
-  color: red;
-}
+  .radio-button {
+    font-size: 50px; /* Control size via CSS */
+    border-radius: 100%;
+    background-color: #172f5e7d;
+    
+  }
 
-.not-record-button {
-  font-size: 80px;
-  color: rgb(135, 135, 135);
-}
+  .radio-button.recording {
+    color: #ffffff00; /* Color when recording */
+    background-color: #172f5e;
+    animation: circle-size 0.8s linear infinite alternate;
+  }
 
-.mic-icon {
-  font-size: 40px;
-  position: absolute;
-  color: white;
-  margin-left: 20%;
-  top: 10;
-}
+  @keyframes pulse {
+    0% {
+      opacity: 100%;
+    }
+    25% {
+      opacity: 25%;
+    }
+    50% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 25%;
+    }
+  
+  } 
+
+  .radio-button.not-recording {
+    color: #000d4800; /* Color when not recording */
+    border-radius: 100%;
+    background-color: #172f5e;
+    animation: appear 0.8 ease;
+  }
+
+  .mic-icon {
+    font-size: 40px; /* Control size via CSS */
+    position: absolute;
+    transition: color 0.3s ease; /* Smooth color transition */
+    border-radius: 100%;
+    background-color: #172f5e;
+  }
+
+  /*.mic-icon.recording
+  {
+    transform
+  } */
+
+  .mic-icon.recording {
+    color: #ffffff; /* Color when not recording */
+    background-color: #172f5e00;
+  }
+
+  .mic-icon.not-recording {
+
+    color: #ffffff; /* Color when not recording */
+    background-color: #172f5e00;
+    animation: appear 0.8 ease;
+  }
+
+  @keyframes circle-size {
+    from {
+      width: 50px;
+      height: 50px;
+      opacity: 100%;
+    }
+    to {
+      width: 54px;
+      height: 54px;
+      opacity: 70%;
+    }
+  }
