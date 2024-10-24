@@ -6,13 +6,12 @@ import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../Styling/Map.css";
 
-
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function Map() {
   const mapContainer = useRef(null);
-  const map = useRef(null); 
+  const map = useRef(null);
   const currentmarker = useRef(null);
   currentmarker.className = "marker";
 
@@ -25,9 +24,7 @@ export default function Map() {
   //testing building name
   const [buildingName, setBuildingName] = useState("MLK Library");
 
-  
   const [isShrinking, setIsShrinking] = useState(false);
-
 
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
@@ -55,7 +52,6 @@ export default function Map() {
     resetInactivityTimer(); //start reset timer
   }, []);
 
-
   //add bbc markers
   const addMarkers = () => {
     const el = document.createElement("div");
@@ -75,7 +71,6 @@ export default function Map() {
     try {
       const response = await axios.get(
         `http://localhost:5001/routes/route/${name.toLowerCase()}`
-
       );
 
       const routeData = response.data.route.coordinates;
@@ -171,13 +166,13 @@ export default function Map() {
     }, 60000);
   };
 
-    const handleButtonClick = () => {
+  const handleButtonClick = () => {
     setIsShrinking(true);
     setTimeout(() => {
       setIsShrinking(false);
     }, 800);
   };
-  
+
   //uncomment when setting up a new kiosk in different location
   //get user's location only get location after a start button is pressed
   // const getUserLocation = () => {
@@ -242,19 +237,19 @@ export default function Map() {
   // };
 
   return (
-    
-
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
 
       {showVoiceRecord ? (
         <VoiceRecord />
       ) : (
-
-        <button className={`start-button ${isShrinking ? "afterShrink" : ""}`}  onClick={
-        handleStartClick();
-        handleButtonClick();
-        }>
+        <button
+          className={`start-button ${isShrinking ? "afterShrink" : ""}`}
+          onClick={() => {
+            handleStartClick();
+            handleButtonClick();
+          }}
+        >
           START
         </button>
       )}
