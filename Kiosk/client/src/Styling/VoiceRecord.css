@@ -27,6 +27,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 4%;
   }
 
   .radio-button {

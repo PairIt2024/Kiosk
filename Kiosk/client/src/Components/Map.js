@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
+import Events from "../Components/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../Styling/Map.css";
+
 
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -23,9 +25,9 @@ export default function Map() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/streets-v12",
       center: [-121.8811, 37.3352],
-      zoom: 16.4,
+      zoom: 16.3,
       bearing: -30.5,
       dragPan: false,
       scrollZoom: false,
@@ -45,7 +47,7 @@ export default function Map() {
 
           //center map and stop moving animation
 
-          map.current.setZoom(16.4);
+          map.current.setZoom(16.3);
 
           //add marker for user's current location
           if (currentmarker.current) {
@@ -124,6 +126,8 @@ export default function Map() {
   };
   
   return (
+    
+
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
 
