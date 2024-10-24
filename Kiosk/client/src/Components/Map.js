@@ -1,18 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
+import Events from "../Components/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../Styling/Map.css";
+
 
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function Map() {
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef(null); 
   const currentmarker = useRef(null);
   currentmarker.className = "marker";
+
   //const [currentlocation, setCurrentLocation] = useState(false);
   const [showVoiceRecord, setShowVoiceRecord] = useState(false);
   const inactivityTimeout = useRef(null);
@@ -21,6 +24,10 @@ export default function Map() {
 
   //testing building name
   const [buildingName, setBuildingName] = useState("MLK Library");
+
+  
+  const [isShrinking, setIsShrinking] = useState(false);
+
 
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
@@ -31,11 +38,11 @@ export default function Map() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      // "mapbox://styles/mapbox/streets-v11" og one
 
-      style: "mapbox://styles/mapbox/light-v9",
+      style: "mapbox://styles/mapbox/streets-v12",
+
       center: [-121.8811, 37.3352],
-      zoom: 16.4,
+      zoom: 16.3,
       bearing: -30.5,
       dragPan: false,
       scrollZoom: false,
@@ -47,6 +54,7 @@ export default function Map() {
 
     resetInactivityTimer(); //start reset timer
   }, []);
+
 
   //add bbc markers
   const addMarkers = () => {
@@ -67,6 +75,7 @@ export default function Map() {
     try {
       const response = await axios.get(
         `http://localhost:5001/routes/route/${name.toLowerCase()}`
+
       );
 
       const routeData = response.data.route.coordinates;
@@ -137,7 +146,7 @@ export default function Map() {
     map.current.setCenter(initialCoordinates);
     map.current.setZoom(16.3);
 
-    // Disable map interactions
+    //disable map interactions
     map.current.dragPan.disable();
     map.current.scrollZoom.disable();
     map.current.doubleClickZoom.disable();
@@ -158,9 +167,17 @@ export default function Map() {
     //set a new timer to reset the map after 1 minute of inactivity
     inactivityTimeout.current = setTimeout(() => {
       resetMapAndState();
+      setIsShrinking(false);
     }, 60000);
   };
 
+    const handleButtonClick = () => {
+    setIsShrinking(true);
+    setTimeout(() => {
+      setIsShrinking(false);
+    }, 800);
+  };
+  
   //uncomment when setting up a new kiosk in different location
   //get user's location only get location after a start button is pressed
   // const getUserLocation = () => {
@@ -225,13 +242,19 @@ export default function Map() {
   // };
 
   return (
+    
+
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
 
       {showVoiceRecord ? (
         <VoiceRecord />
       ) : (
-        <button className="start-button" onClick={handleStartClick}>
+
+        <button className={`start-button ${isShrinking ? "afterShrink" : ""}`}  onClick={
+        handleStartClick();
+        handleButtonClick();
+        }>
           START
         </button>
       )}
