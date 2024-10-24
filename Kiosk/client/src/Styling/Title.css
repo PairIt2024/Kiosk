@@ -9,13 +9,41 @@
   /* position: fixed; */
 }
 
+.title-container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
 .eventtitlestyle {
   font-size: 200%;
   font-weight: bold;
   color: #172f5e;
-  margin-top: 13%;
-  margin-bottom: 5%;
+  margin-top: 8%;
+  margin-bottom: 4%;
   text-align: center;
   font-family: Tahoma, sans-serif;
   /* position: fixed; */
+}
+
+
+/* Styling for the logo image */
+.logo-image {
+  width: 80px; /* Adjust size based on the design */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Styling to handle responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .style {
+    font-size: 200%; /* Adjust size for smaller screens */
+  }
+
+  .logo-image {
+    width: 60px; /* Smaller logo on mobile */
+  }
+
+  .eventtitlestyle {
+    font-size: 180%; /* Adjust event title for mobile */
+  }
 }
