@@ -17,9 +17,7 @@ export default function Home() {
       <div className="map-section"> 
         <Title />
         <Search />
-        <div className="map-microphone-container">
-          <Map />
-        </div>
+        <Map />
       </div>
     </div>
   );
