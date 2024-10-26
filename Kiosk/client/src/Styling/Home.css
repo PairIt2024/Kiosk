@@ -13,6 +13,7 @@
   width: 45%; /* Events section takes 45% of the width */
   text-align: center;
   margin-left: 2%;
+  margin-top: 2%;
 }
 
 
@@ -25,5 +26,6 @@
   width: 100%; /* Map takes 55% of the width */
   height: 100vh; /* Make sure it takes full vertical space */
   margin-left: -5%;
+  margin-top: 5%;
 }
 
