@@ -21,10 +21,10 @@
   {
     position: absolute;
     top: 7%;
-    right: -520px; 
-    width: 500px;
+    right: -60%; 
+    width: 40%;
     height: 600px;
-    border: 3px solid #172f5e;
+    border: 4px solid #172f5e;
     background-color: rgb(255, 255, 255);
     transition: right 0.8s ease-in-out; 
     display: flex;
@@ -34,7 +34,7 @@
   }
 
   .sliding-div.visible {
-    right: 80px; 
+    right: 6.2%; 
     opacity: 90%;
   }
 
