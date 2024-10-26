@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 const Navbar = ({ onSearch }) => {
   return (
     <div className="navbar">
-      <img src="/pairitlogo.png" alt="Logo" className="logo" />
+      <Link to="/">
+        <img src="/pairitlogo.png" alt="Logo" className="logo" />
+      </Link>
       <div className="search-bar">
         <SearchBar
           onSearch={(query) => console.log(`Searching for: ${query}`)}
