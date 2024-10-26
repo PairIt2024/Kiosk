@@ -14,7 +14,6 @@ export default function Home() {
         <Events />
       </div>
       <div className="map-section"> 
-        <Title />
         <Map />
       </div>
     </div>
