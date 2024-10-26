@@ -1,0 +1,44 @@
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Ensures space between logo and other elements */
+  align-items: center;
+  padding: 0.5rem 1rem; /* Slimmer padding */
+  background-color: #2b3a55;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* 
+.logo {
+  width: 80px;
+  height: auto;
+  margin-left: 0;
+} */
+.logo {
+  width: 80px;
+  height: auto;
+  margin-left: 20px; /* moves the logo to the right */
+  margin-top: -9px; /* moves the logo slightly up */
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+}
