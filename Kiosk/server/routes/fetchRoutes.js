@@ -3,7 +3,7 @@ import Route from "../models/routesModel.js";
 const router = express.Router();
 
 //@route GET /test
-//test route using /route/washington-square-hall
+//test route using /route/washington square hall
 router.get("/route/:buildingName", async (req, res) => {
   try {
     const buildingName = req.params.buildingName;

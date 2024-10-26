@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
+import DirectionsPopup from "../Components/Directions";
 import Events from "../Components/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
@@ -14,7 +15,10 @@ export default function Map() {
   const map = useRef(null);
   const currentmarker = useRef(null);
   currentmarker.className = "marker";
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [directions, setDirections] = useState([]);
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [totalDuration, setTotalDuration] = useState(0);
   //const [currentlocation, setCurrentLocation] = useState(false);
   const [showVoiceRecord, setShowVoiceRecord] = useState(false);
   const inactivityTimeout = useRef(null);
@@ -22,7 +26,7 @@ export default function Map() {
   const routeLayerId = "route-layer";
 
   //testing building name
-  const [buildingName, setBuildingName] = useState("MLK Library");
+  const [buildingName, setBuildingName] = useState("swenson gate");
 
   const [isShrinking, setIsShrinking] = useState(false);
 
@@ -39,7 +43,7 @@ export default function Map() {
       style: "mapbox://styles/mapbox/streets-v12",
 
       center: [-121.8811, 37.3352],
-      zoom: 16.3,
+      zoom: 16.3, // change zoom if location is parking garage
       bearing: -30.5,
       dragPan: false,
       scrollZoom: false,
@@ -74,8 +78,11 @@ export default function Map() {
       );
 
       const routeData = response.data.route.coordinates;
-      //console.log("Route data:", routeData);
+      console.log("Route data:", routeData);
+      //const routeSteps = response.data.steps;
+      console.log("Route steps:", response.data.steps);
 
+      //console.log("Response:", response.data);
       //remove the previous route layer if it exists
       if (map.current.getLayer(routeLayerId)) {
         map.current.removeLayer(routeLayerId);
@@ -107,6 +114,14 @@ export default function Map() {
           "line-width": 4,
         },
       });
+
+      setDirections(response.data.steps);
+      const totalDistance = response.data.distance / 1609.34;
+      const totalDuration = Math.floor(response.data.duration / 60);
+      setTotalDistance(totalDistance);
+      setTotalDuration(totalDuration);
+
+      setShowPopup(true);
     } catch (error) {
       console.error("Error fetching route:", error);
     }
@@ -114,6 +129,12 @@ export default function Map() {
 
   const handleGetRoute = () => {
     fetchAndPlotRoute(buildingName);
+    console.log("Directions:", directions);
+  };
+
+  //controls direction pop up
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   //display voice record component when start button is clicked
@@ -230,15 +251,24 @@ export default function Map() {
   //       "http://localhost:5001/calculate-routes",
   //       { userCoords: coords }
   //     );
-  //     console.log("Routes saved:", response.data.routes);
+  //     console.log("Routes saved:", response.data);
   //   } catch (error) {
   //     console.error("Error sending coordinates:", error);
   //   }
   // };
+  //sendUserCoordinates(bbcCoordinates);
 
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
+      {showPopup && (
+        <DirectionsPopup
+          directions={directions}
+          totalDistance={totalDistance}
+          totalDuration={totalDuration}
+          onClose={closePopup}
+        />
+      )}
 
       {showVoiceRecord ? (
         <VoiceRecord />

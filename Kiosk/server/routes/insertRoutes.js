@@ -1,5 +1,5 @@
-//script to get location of kiosk to any building to post to db
-//commented out since we only need to run this once
+// //script to get location of kiosk to any building to post to db
+// //commented out since we only need to run this once
 
 // import axios from "axios";
 // import Route from "../models/routesModel.js";
@@ -13,10 +13,16 @@
 //   try {
 //     const response = await axios.get(directionsURL);
 //     const route = response.data.routes[0].geometry;
-//     const steps = response.data.routes[0].legs[0].steps.map(
-//       (step) => step.maneuver.instruction
-//     );
-//     return { route, steps };
+//     const duration = response.data.routes[0].duration; //duration in seconds
+//     const distance = response.data.routes[0].distance;
+
+//     const steps = response.data.routes[0].legs[0].steps.map((step) => ({
+//       instruction: step.maneuver.instruction,
+//       duration: step.duration,
+//       distance: step.distance,
+//     }));
+
+//     return { route, steps, duration, distance };
 //   } catch (error) {
 //     console.error("Error fetching directions:", error);
 //     throw error;
@@ -44,14 +50,21 @@
 //         endCoords: building.coords,
 //         route: routeData.route,
 //         steps: routeData.steps,
+//         duration: routeData.duration,
+//         distance: routeData.distance,
 //       });
-//       await newRoute.save(); // Save each route to MongoDB
+//       await newRoute.save();
 //       routes.push(newRoute);
 //     }
 
 //     res.status(200).json({ message: "Routes saved successfully", routes });
 //     console.log(routes);
 //   } catch (error) {
+//     console.error(
+//       "Error fetching directions:",
+//       error.response?.data || error.message
+//     );
+
 //     res.status(500).json({ error: "Failed to fetch directions" });
 //   }
 // });
