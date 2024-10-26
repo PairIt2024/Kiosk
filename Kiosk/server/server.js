@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 import connectdb from "./config/db.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import fetchRoutes from "./routes/fetchRoutes.js";
-//import insertRoutes from "./routes/insertRoutes.js";
-import cors from "cors";
 
+//import insertRoutes from "./routes/insertRoutes.js";
+
+import cors from "cors";
 //Load dotenv
 dotenv.config();
 
@@ -21,7 +22,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/courses", courseRoutes);
+app.use('/courses', courseRoutes);
+app.use('/buildings', buildingRoutes);
 app.use("/routes", fetchRoutes);
 //app.post("/calculate-routes", insertRoutes); //commented out since we only need to run this once
 

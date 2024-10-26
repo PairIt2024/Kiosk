@@ -1,10 +1,8 @@
 import React from "react";
 import Map from "../Components/Map";
-import Title from "../Components/Title";
 import EventTitle from "../Components/EventTitle";
 import Events from "../Components/Events";
 import "../Styling/Home.css";
-
 
 export default function Home() {
   return (
@@ -13,8 +11,7 @@ export default function Home() {
         <EventTitle />
         <Events />
       </div>
-      <div className="map-section"> 
-        <Title />
+      <div className="map-section">
         <Map />
       </div>
     </div>

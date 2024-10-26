@@ -1,0 +1,9 @@
+.search-button {
+    height: 56px;
+}
+
+.search-button:active
+{ 
+  transform: scale(0.9); 
+}
+ 
