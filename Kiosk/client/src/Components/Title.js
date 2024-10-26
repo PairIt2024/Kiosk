@@ -6,7 +6,6 @@ export default function Title() {
     
     <div className="title-container">
         <img src="/pairitlogo.png" alt="PairIT Logo" className="logo-image" />
-        <h1 className="style">PairIT</h1>
     </div>
   );
 }
