@@ -1,4 +1,4 @@
-/* resize map */
+
 .container {
   width: 84%;
   height: 710px;
@@ -15,8 +15,8 @@
   font-size: larger;
   font-family: Tahoma, sans-serif;
   color: white;
-  border: 3px solid #172f5e; /* Removes default border */
-  border-radius: 15px; /* Rounds the corners */
+  border: 3px solid #172f5e;
+  border-radius: 15px;
   margin-top: 0.5%;
   margin-bottom: 3%;
   margin-left: 6%;
@@ -34,12 +34,11 @@
   }
   to{
     font-size: small;
-    width: 60px; /* Adjust size to mic button size */
-    height: 60px; /* Adjust size to mic button size */
+    width: 60px;
+    height: 60px;
     transform: translateX(10px) scale(0.5);
-    border-radius: 50%; /* Change to a circle */
-    opacity: 0; /* Fade out */
-
+    border-radius: 50%; 
+    opacity: 0;
   }
 }
 
@@ -55,11 +54,9 @@
 
 .start-button:hover {
   background-color: #eaeeff;
-  color: black /* Darker shade of the original color */
+  color: black 
 }
 
-
-/* controls pairit title map and startbutton */
 .outercontainer {
   display: flex;
   flex-direction: column;

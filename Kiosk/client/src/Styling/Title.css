@@ -27,23 +27,22 @@
 }
 
 
-/* Styling for the logo image */
 .logo-image {
-  width: 80px; /* Adjust size based on the design */
-  height: auto; /* Maintain aspect ratio */
+  width: auto; 
+  height: 100px;
 }
 
-/* Styling to handle responsiveness for smaller screens */
+
 @media (max-width: 768px) {
   .style {
-    font-size: 200%; /* Adjust size for smaller screens */
+    font-size: 200%;
   }
 
   .logo-image {
-    width: 60px; /* Smaller logo on mobile */
+    width: 60px;
   }
 
   .eventtitlestyle {
-    font-size: 180%; /* Adjust event title for mobile */
+    font-size: 180%;
   }
 }
