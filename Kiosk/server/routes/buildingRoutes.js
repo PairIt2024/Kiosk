@@ -2,7 +2,6 @@ import express from "express";
 import Route from "../models/routesModel.js";
 const router = express.Router();
 
-
 router.get("/bbcroutes/:buildingName", async (req, res) => {
   try {
     console.log("GET /bbcroutes/:buildingName");
