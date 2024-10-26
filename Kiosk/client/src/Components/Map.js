@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
 import Events from "../Components/Events"; // Import the Events component
+import ClassPopup from '../Components/ClassPopup';  
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -23,8 +24,8 @@ export default function Map() {
 
   //testing building name
   const [buildingName, setBuildingName] = useState("MLK Library");
-
   const [isShrinking, setIsShrinking] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
@@ -173,6 +174,11 @@ export default function Map() {
     }, 800);
   };
 
+  const toggleDiv = () => {
+    setIsVisible(!isVisible); 
+};
+
+
   //uncomment when setting up a new kiosk in different location
   //get user's location only get location after a start button is pressed
   // const getUserLocation = () => {
@@ -239,7 +245,6 @@ export default function Map() {
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
-
       {showVoiceRecord ? (
         <VoiceRecord />
       ) : (
@@ -253,6 +258,13 @@ export default function Map() {
           START
         </button>
       )}
+
+      <button className="toggle-button" onClick={toggleDiv}>
+        {isVisible ? "Hide Sliding Box" : "Show Sliding Box"}
+      </button>
+
+      {/* The sliding box div */}
+      <ClassPopup isVisible={isVisible} toggleVisibility={toggleDiv} />
 
       {/* test to get route to a building */}
       <button onClick={handleGetRoute}>Get Route to {buildingName}</button>
