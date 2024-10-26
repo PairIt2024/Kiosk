@@ -25,6 +25,7 @@ router.get("/classes/:classNumber", async (req, res) => {
 
 //return class name search through user input
 //test route using /courses/classes/science
+//use query for search bar
 router.get("/search", async (req, res) => {
   const { query } = req.query; // User input
 
