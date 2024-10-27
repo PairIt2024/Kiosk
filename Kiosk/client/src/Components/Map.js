@@ -242,6 +242,7 @@ export default function Map() {
   //   }
   // };
 
+
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
