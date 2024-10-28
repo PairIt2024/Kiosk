@@ -1,8 +1,9 @@
 // Events.js
-import React from "react";
+import React, { useEffect } from "react";
 import "../Styling/Events.css";
+import { useState } from "react";
 
-const eventsData = [
+/*const eventsData = [
   { 
     title: "Theta Tau PNM Fundraising",
     date: "Date: Wednesday 10/23 @ 11-4PM", 
@@ -53,23 +54,32 @@ const eventsData = [
     imageUrl: "/sammyspartan.jpg"
   }
 ];
+*/
 
 export default function Events() {
+  const [eventsData, setEventsData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5001/events/getEvents')
+      .then((response) => response.json())
+      .then((data) => setEventsData(data));
+  }, []);
+
   return (
     <div className="events-wrapper">
       <div className="events-container">
         {eventsData.map((event, index) => (
           <div className="event-item" key={index}>
-            <img 
-              src={event.imageUrl} 
-              alt={`Event ${index + 1}`} 
+            <img
+              src={event.img_src}
+              alt={`Event ${index + 1}`}
               className="event-image"
             />
             <div className="event-details">
               <h3 className="event-title">{event.title}</h3>
               <p className="event-date">{event.date}</p>
               <p className="event-location">{event.location}</p>
-              <p className="event-description">{event.description}</p>
+             
             </div>
           </div>
         ))}

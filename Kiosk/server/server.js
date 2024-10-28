@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import connectdb from "./config/db.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import fetchRoutes from "./routes/fetchRoutes.js";
-
+import events from "./routes/events/fetchEvents.js";
 //import insertRoutes from "./routes/insertRoutes.js";
+import buildingRoutes from "./routes/buildingRoutes.js";
 
 import cors from "cors";
 //Load dotenv
@@ -25,6 +26,7 @@ app.use(cors());
 app.use('/courses', courseRoutes);
 app.use('/buildings', buildingRoutes);
 app.use("/routes", fetchRoutes);
+app.use("/events", events);
 //app.post("/calculate-routes", insertRoutes); //commented out since we only need to run this once
 
 const PORT = process.env.PORT || 5001;
