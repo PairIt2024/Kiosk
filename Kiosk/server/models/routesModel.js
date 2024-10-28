@@ -1,11 +1,19 @@
 import mongoose from "mongoose";
 
 const routeSchema = new mongoose.Schema({
-  buildingName: { type: String, required: true },
-  startCoords: { type: [Number], required: true },
-  endCoords: { type: [Number], required: true },
-  route: { type: Object, required: true },
-  steps: { type: [String], required: true },
+  buildingName: String,
+  startCoords: [Number],
+  endCoords: [Number],
+  route: Object,
+  steps: [
+    {
+      instruction: String,
+      distance: Number,
+      duration: Number,
+    },
+  ],
+  duration: Number,
+  distance: Number,
 });
 
 const Route = mongoose.model("Route", routeSchema, "bbcroutes");
