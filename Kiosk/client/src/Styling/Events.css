@@ -23,7 +23,7 @@
   
 
   .event-item {
-    background-color: white;
+    background-color: rgb(238, 242, 249);
     border-radius: 10px;
     font-family: Tahoma, sans-serif;
     border: 4px solid #172f5e;
@@ -69,7 +69,7 @@
 .event-location,
 .event-description {
     font-size: 14px;
-    font-family: Tahoma, sans-serif;
+    font-family: 'Segoe UI', sans-serif; 
     color: #333;
     padding-right: 3%;
     padding-left: 3%;

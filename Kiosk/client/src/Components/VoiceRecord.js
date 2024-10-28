@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import MicIcon from "@mui/icons-material/Mic";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import "../Styling/VoiceRecord.css";
+import axios from "axios";
 
 export default function VoiceRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -82,16 +83,19 @@ export default function VoiceRecord() {
 
   const sendTranscriptToAPI = async (transcript) => {
     try {
-      const response = await fetch("http://localhost:5001/query", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await axios.post(
+        "http://localhost:5002/query",
+        {
+          query: transcript,
         },
-        body: JSON.stringify({ query: transcript }),
-      });
-      const data = await response.json();
-      console.log("Response from API:", data);
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+        }
+      );
+      console.log("API response:", response.data);
     } catch (error) {
       console.error("Error sending transcript to API:", error);
     }

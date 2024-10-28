@@ -1,6 +1,6 @@
 // Events.js
 import React, { useEffect } from "react";
-import "../Styling/Events.css";
+import "../../Styling/Events.css";
 import { useState } from "react";
 
 /*const eventsData = [
@@ -60,7 +60,7 @@ export default function Events() {
   const [eventsData, setEventsData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5001/events/getEvents')
+    fetch("http://localhost:5001/events/getEvents")
       .then((response) => response.json())
       .then((data) => setEventsData(data));
   }, []);
@@ -79,7 +79,6 @@ export default function Events() {
               <h3 className="event-title">{event.title}</h3>
               <p className="event-date">{event.date}</p>
               <p className="event-location">{event.location}</p>
-             
             </div>
           </div>
         ))}
