@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
-import DirectionsPopup from "../Components/Directions";
+import DirectionsPopup from "../Components/Directions.js";
 import Events from "../Components/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
