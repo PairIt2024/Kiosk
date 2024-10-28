@@ -22,8 +22,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/courses', courseRoutes);
-app.use('/buildings', buildingRoutes);
+app.use("/courses", courseRoutes);
+// app.use('/buildings', buildingRoutes);
 app.use("/routes", fetchRoutes);
 //app.post("/calculate-routes", insertRoutes); //commented out since we only need to run this once
 
