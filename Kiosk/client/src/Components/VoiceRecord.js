@@ -30,6 +30,7 @@ export default function VoiceRecord() {
         }
         console.log("Transcript:", interimTranscript); //printed out in browser's console
         setTranscript(interimTranscript);
+        sendTranscriptToAPI(interimTranscript);
       };
 
       recognitionRef.current.onerror = (event) => {
@@ -79,11 +80,30 @@ export default function VoiceRecord() {
     }
   };
 
+  const sendTranscriptToAPI = async (transcript) => {
+    try {
+      const response = await fetch("http://localhost:5001/query", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ query: transcript }),
+      });
+      const data = await response.json();
+      console.log("Response from API:", data);
+    } catch (error) {
+      console.error("Error sending transcript to API:", error);
+    }
+  };
+
   return (
     <div className="voice-recorder-container">
       <div className="recording-button" onClick={toggleRecording}>
         <RadioButtonUncheckedIcon
-          className={`radio-button ${isRecording ? "recording" : "not-recording"}`}
+          className={`radio-button ${
+            isRecording ? "recording" : "not-recording"
+          }`}
           fontSize="100%"
         />
         <MicIcon
