@@ -1,60 +1,68 @@
-// SearchBar.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../Styling/SearchBar.css";
 import axios from "axios";
-import { set } from "mongoose";
+import ResultsPopup from "../SearchResults.js";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [courseResults, setCourseResults] = useState(null);
-  const [routeResults, setRouteResults] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    console.log("Updated State Results:", results);
+  }, [results]);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const handlecourseSearch = async () => {
+  const handleCourseSearch = async () => {
     try {
-      let url;
-      if (query.match(/[a-zA-Z]/)) {
-        // If input contains letters, assume course search
-        url = `http://localhost:5001/courses/search?query=${encodeURIComponent(
-          query
-        )}`;
-      }
-
+      const url = `http://localhost:5001/courses/search?query=${encodeURIComponent(
+        query
+      )}`;
       const response = await axios.get(url);
-      setResults(response.data);
-      console.log("Results:", response.data);
+      //console.log("Course Results:", response.data);
+      return response.data;
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setCourseResults([]);
+      console.error("Error fetching course data:", error);
+      return [];
     }
   };
-  const handlerouteSearch = async () => {
-    try {
-      let url;
-      if (query.match(/[a-zA-Z]/)) {
-        url = `http://localhost:5001/routes/route?query=${encodeURIComponent(
-          query.toLowerCase()
-        )}`;
-      }
 
+  const handleRouteSearch = async () => {
+    try {
+      const url = `http://localhost:5001/routes/route?query=${encodeURIComponent(
+        query.toLowerCase()
+      )}`;
       const response = await axios.get(url);
-      setResults(response.data);
-      console.log("Results:", response.data);
+      //console.log("Route Results:", response.data);
+      return response.data;
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setRouteResults([]);
+      console.error("Error fetching route data:", error);
+      return [];
     }
   };
-  const handleSearch = (e) => {
+
+  const handleSearch = async (e) => {
     e.preventDefault();
     if (query.trim() === "") return;
 
-    handlecourseSearch();
-    handlerouteSearch();
+    try {
+      const courseResults = await handleCourseSearch();
+      const routeResults = await handleRouteSearch();
+
+      const combinedResults = [...courseResults, ...routeResults];
+      setResults(combinedResults);
+      setShowPopup(true);
+    } catch (error) {
+      console.error("Error during search:", error);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setResults([]);
   };
 
   return (
@@ -68,6 +76,12 @@ const SearchBar = ({ onSearch }) => {
         />
         <button type="submit">Search</button>
       </form>
+
+      {showPopup && (
+        <>
+          <ResultsPopup results={results} onClose={closePopup} />
+        </>
+      )}
     </div>
   );
 };

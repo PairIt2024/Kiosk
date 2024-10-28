@@ -6,6 +6,8 @@ import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../Styling/Map.css";
+import ResultsPopup from "../Components/SearchResults.js"; // Import ResultsPopup
+import { set } from "mongoose";
 
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -24,9 +26,10 @@ export default function Map() {
   const inactivityTimeout = useRef(null);
   //const [userCoordinates, setUserCoordinates] = useState(null);
   const routeLayerId = "route-layer";
+  const [results, setResults] = useState([]);
 
   //testing building name
-  const [buildingName, setBuildingName] = useState("swenson gate");
+  const [buildingName, setBuildingName] = useState("");
 
   const [isShrinking, setIsShrinking] = useState(false);
 
@@ -70,7 +73,7 @@ export default function Map() {
       .addTo(map.current);
   };
 
-  //fetch route to a building from backend
+  // fetch route to a building from backend
   const fetchAndPlotRoute = async (name) => {
     try {
       const response = await axios.get(
@@ -78,9 +81,9 @@ export default function Map() {
       );
 
       const routeData = response.data.route.coordinates;
-      console.log("Route data:", routeData);
+      console.log("Route data from map.js:", routeData);
       //const routeSteps = response.data.steps;
-      console.log("Route steps:", response.data.steps);
+      console.log("Route steps from map.js:", response.data.steps);
 
       //console.log("Response:", response.data);
       //remove the previous route layer if it exists
@@ -194,6 +197,11 @@ export default function Map() {
     }, 800);
   };
 
+  const handleBuildingSelect = (name) => {
+    setBuildingName(name); // Update state with selected building name
+    handleGetRoute(); // Call route fetching logic
+  };
+
   //uncomment when setting up a new kiosk in different location
   //get user's location only get location after a start button is pressed
   // const getUserLocation = () => {
@@ -261,6 +269,7 @@ export default function Map() {
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
+
       {showPopup && (
         <DirectionsPopup
           directions={directions}
