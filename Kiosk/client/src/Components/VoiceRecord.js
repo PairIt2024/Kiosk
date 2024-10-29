@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import MicIcon from "@mui/icons-material/Mic";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import "../Styling/VoiceRecord.css";
+import axios from "axios";
 
 export default function VoiceRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -30,6 +31,7 @@ export default function VoiceRecord() {
         }
         console.log("Transcript:", interimTranscript); //printed out in browser's console
         setTranscript(interimTranscript);
+        sendTranscriptToAPI(interimTranscript);
       };
 
       recognitionRef.current.onerror = (event) => {
@@ -79,11 +81,33 @@ export default function VoiceRecord() {
     }
   };
 
+  const sendTranscriptToAPI = async (transcript) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5002/query",
+        {
+          query: transcript,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+        }
+      );
+      console.log("API response:", response.data);
+    } catch (error) {
+      console.error("Error sending transcript to API:", error);
+    }
+  };
+
   return (
     <div className="voice-recorder-container">
       <div className="recording-button" onClick={toggleRecording}>
         <RadioButtonUncheckedIcon
-          className={`radio-button ${isRecording ? "recording" : "not-recording"}`}
+          className={`radio-button ${
+            isRecording ? "recording" : "not-recording"
+          }`}
           fontSize="100%"
         />
         <MicIcon

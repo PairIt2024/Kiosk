@@ -1,7 +1,7 @@
 import React from "react";
 import Map from "../Components/Map";
 import EventTitle from "../Components/EventTitle";
-import Events from "../Components/Events";
+import Events from "../Components/Events/Events";
 import "../Styling/Home.css";
 
 
