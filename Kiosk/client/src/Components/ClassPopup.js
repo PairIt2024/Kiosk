@@ -75,7 +75,7 @@ const ClassPopup = ({ isVisible, toggleVisibility, getRoute }) => {
                 cursor: dragging ? "grabbing" : "grab",
             }}
         >
-            <button className="close-button" onClick={toggleVisibility}>x</button>
+            <button className="close-button1" onClick={toggleVisibility}>x</button>
             <div className="classes-container">
                 {classesData.map((classItem, index) => (
                     <div className="class-item" key={index}>
