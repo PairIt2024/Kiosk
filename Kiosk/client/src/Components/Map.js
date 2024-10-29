@@ -12,7 +12,7 @@ import { set } from "mongoose";
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-function Map({ buildingName }) {
+function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const currentmarker = useRef(null);

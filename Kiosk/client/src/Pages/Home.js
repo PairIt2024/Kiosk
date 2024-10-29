@@ -6,7 +6,6 @@ import "../Styling/Home.css";
 import SearchResults from "../Components/SearchResults";
 
 export default function Home() {
-  const [otherbuildingName, setotherBuildingName] = useState("");
   return (
     <div className="home-container">
       <div className="event-container">
@@ -14,8 +13,7 @@ export default function Home() {
         <Events />
       </div>
       <div className="map-section">
-        <Map buildingName={{ otherbuildingName }} />
-        <SearchResults setBuildingName={setotherBuildingName} />
+        <Map />
       </div>
     </div>
   );
