@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    console.log("Updated State Results:", results);
+    // console.log("Updated State Results:", results);
   }, [results]);
 
   const handleInputChange = (e) => {

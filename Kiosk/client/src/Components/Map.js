@@ -12,12 +12,13 @@ import { set } from "mongoose";
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-export default function Map() {
+function Map({ buildingName }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const currentmarker = useRef(null);
   currentmarker.className = "marker";
-  const [showPopup, setShowPopup] = useState(false);
+  const [showDirectionPopup, setDirectionShowPopup] = useState(false);
+  const [showResultPopup, setResultShowPopup] = useState(false);
   const [directions, setDirections] = useState([]);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
@@ -30,6 +31,15 @@ export default function Map() {
 
   //testing building name
   const [buildingName, setBuildingName] = useState("");
+  // const handleBuildingSelect = (buildingName) => {
+  //   console.log("Selected building:", buildingName);
+  //   setBuildingName(buildingName); // Update the state with the selected building name
+  // };
+  // map.js
+  const handleBuildingSelect = (buildingName) => {
+    console.log(`Navigating map to ${buildingName}`);
+    // Add logic to update the map view or display a route
+  };
 
   const [isShrinking, setIsShrinking] = useState(false);
 
@@ -124,7 +134,7 @@ export default function Map() {
       setTotalDistance(totalDistance);
       setTotalDuration(totalDuration);
 
-      setShowPopup(true);
+      setDirectionShowPopup(true);
     } catch (error) {
       console.error("Error fetching route:", error);
     }
@@ -137,7 +147,7 @@ export default function Map() {
 
   //controls direction pop up
   const closePopup = () => {
-    setShowPopup(false);
+    setDirectionShowPopup(false);
   };
 
   //display voice record component when start button is clicked
@@ -195,11 +205,6 @@ export default function Map() {
     setTimeout(() => {
       setIsShrinking(false);
     }, 800);
-  };
-
-  const handleBuildingSelect = (name) => {
-    setBuildingName(name); // Update state with selected building name
-    handleGetRoute(); // Call route fetching logic
   };
 
   //uncomment when setting up a new kiosk in different location
@@ -270,14 +275,22 @@ export default function Map() {
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
 
-      {showPopup && (
+      {/* {showDirectionPopup && (
         <DirectionsPopup
           directions={directions}
           totalDistance={totalDistance}
           totalDuration={totalDuration}
+          onBuildingSelect={handleBuildingSelect}
           onClose={closePopup}
         />
+      )} */}
+      {showResultPopup && (
+        <ResultsPopup
+          onClose={() => set(false)}
+          onBuildingSelect={handleBuildingSelect} // Pass down the function
+        />
       )}
+      <p>Selected Building: {buildingName}</p>
 
       {showVoiceRecord ? (
         <VoiceRecord />
@@ -298,3 +311,5 @@ export default function Map() {
     </div>
   );
 }
+
+export default Map;

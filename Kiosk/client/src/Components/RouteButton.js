@@ -31,22 +31,20 @@
 
 // RouteButton.js
 import React from "react";
-import axios from "axios";
 
 const RouteButton = ({ buildingName, onBuildingSelect, closePopup }) => {
-  const handleClick = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5001/routes/route/${buildingName.toLowerCase()}`
-      );
-      const routeData = response.data;
+  const handleClick = () => {
+    console.log("Button clicked for:", buildingName); // Ensure the building name is logged
+    console.log("onBuildingSelect callback:", onBuildingSelect);
 
-      // Update the building name in Map.js and close the popup
+    if (onBuildingSelect) {
       onBuildingSelect(buildingName);
-      closePopup();
-    } catch (error) {
-      console.error("Error fetching route:", error);
+      console.log("Building selected:", buildingName);
+    } else {
+      console.warn("onBuildingSelect callback is not defined.");
     }
+
+    closePopup(); // Close the popup after selecting the building
   };
 
   return (

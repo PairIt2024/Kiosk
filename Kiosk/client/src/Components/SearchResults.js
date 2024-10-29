@@ -67,75 +67,119 @@
 
 // export default ResultsPopup;
 
-import React from "react";
-import RouteButton from "./RouteButton.js";
-import "../Styling/SearchResults.css";
+// import React from "react";
+// import RouteButton from "./RouteButton.js";
+// import "../Styling/SearchResults.css";
 
-const kmToMiles = (km) => (km / 1609.34).toFixed(2);
-const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
+// const kmToMiles = (km) => (km / 1609.34).toFixed(2);
+// const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
 
-const ResultsPopup = ({ onClose, onBuildingSelect, results }) => {
+// const ResultsPopup = ({ onClose, onBuildingSelect, results }) => {
+//   console.log("onbuildingselect for result popup:", onBuildingSelect);
+//   return (
+//     <div className="popup-overlay">
+//       <div className="popup-content">
+//         <button className="close-button" onClick={onClose}>
+//           &times;
+//         </button>
+//         <h2>Search Results</h2>
+//         <ul>
+//           {results.map((result, index) => (
+//             <li key={index}>
+//               <h3>
+//                 {result.course_title
+//                   ? result.course_title
+//                   : result.buildingName || "Unnamed Building"}
+//               </h3>
+
+//               {result.course_title ? (
+//                 // Course-specific details and route button
+//                 <>
+//                   <p>
+//                     <strong>Section:</strong> {result.section}
+//                   </p>
+//                   <p>
+//                     <strong>Instructor:</strong> {result.instructor}
+//                   </p>
+//                   <p>
+//                     <strong>Location:</strong> {result.location}
+//                   </p>
+//                   <p>
+//                     <strong>Time:</strong> {result.times}
+//                   </p>
+//                   <RouteButton
+//                     buildingName={result.location} // Use location as building name
+//                     onBuildingSelect={onBuildingSelect}
+//                     closePopup={onClose}
+//                   />
+//                 </>
+//               ) : (
+//                 // Building-specific details and route button
+//                 <>
+//                   <p>
+//                     <strong>Distance:</strong> {kmToMiles(result.distance)}{" "}
+//                     miles
+//                   </p>
+//                   <p>
+//                     <strong>Walking Duration:</strong>{" "}
+//                     {secondsToMinutes(result.duration)} minutes
+//                   </p>
+//                   <RouteButton
+//                     buildingName={result.buildingName}
+//                     onBuildingSelect={onBuildingSelect} // Pass callback to RouteButton
+//                     closePopup={onClose}
+//                   />
+//                 </>
+//               )}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ResultsPopup;
+function SearchResults({ setBuildingName }) {
+  const handleRouteClick = (buildingName) => {
+    setBuildingName(buildingName);
+    // Additional logic if needed
+  };
+
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <button className="close-button" onClick={onClose}>
-          &times;
-        </button>
-        <h2>Search Results</h2>
-        <ul>
-          {results.map((result, index) => (
-            <li key={index}>
-              <h3>
-                {result.course_title
-                  ? result.course_title
-                  : result.buildingName || "Unnamed Building"}
-              </h3>
-
-              {result.course_title ? (
-                // Course-specific details and route button
-                <>
-                  <p>
-                    <strong>Section:</strong> {result.section}
-                  </p>
-                  <p>
-                    <strong>Instructor:</strong> {result.instructor}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {result.location}
-                  </p>
-                  <p>
-                    <strong>Time:</strong> {result.times}
-                  </p>
-                  <RouteButton
-                    buildingName={result.location} // Use location as building name
-                    onBuildingSelect={onBuildingSelect}
-                    closePopup={onClose}
-                  />
-                </>
-              ) : (
-                // Building-specific details and route button
-                <>
-                  <p>
-                    <strong>Distance:</strong> {kmToMiles(result.distance)}{" "}
-                    miles
-                  </p>
-                  <p>
-                    <strong>Walking Duration:</strong>{" "}
-                    {secondsToMinutes(result.duration)} minutes
-                  </p>
-                  <RouteButton
-                    buildingName={result.buildingName}
-                    onBuildingSelect={onBuildingSelect}
-                    closePopup={onClose}
-                  />
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <ul>
+      {results.map((result) => (
+        <li key={result.id}>
+          {result.type === "location" ? (
+            <>
+              <button
+                className="route-button"
+                onClick={() => handleRouteClick(result.locationName)}
+              >
+                Go to Location
+              </button>
+            </>
+          ) : (
+            <>
+              <p>
+                <strong>Distance:</strong> {kmToMiles(result.distance)} miles
+              </p>
+              <p>
+                <strong>Walking Duration:</strong>{" "}
+                {secondsToMinutes(result.duration)} minutes
+              </p>
+              <button
+                className="route-button"
+                onClick={() => handleRouteClick(result.buildingName)}
+              >
+                Go to Building
+              </button>
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
   );
-};
+}
 
-export default ResultsPopup;
+export default SearchResults;
