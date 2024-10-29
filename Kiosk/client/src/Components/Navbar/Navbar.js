@@ -3,16 +3,14 @@ import "../../Styling/Navbar.css";
 import SearchBar from "../Navbar/Searching";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ onSearch }) => {
+function Navbar() {
   return (
     <div className="navbar">
       <Link to="/">
         <img src="/pairitlogo.png" alt="Logo" className="logo" />
       </Link>
       <div className="search-bar">
-        <SearchBar
-          onSearch={(query) => console.log(`Searching for: ${query}`)}
-        />
+        <SearchBar />
       </div>
 
       <div className="navbar-links">
@@ -22,6 +20,6 @@ const Navbar = ({ onSearch }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Navbar;
