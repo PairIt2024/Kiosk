@@ -1,6 +1,6 @@
 import React from "react";
 import Map from "../Components/Map";
-import EventTitle from "../Components/EventTitle";
+import EventTitle from "../Components/Events/EventTitle";
 import Events from "../Components/Events/Events";
 import "../Styling/Home.css";
 
