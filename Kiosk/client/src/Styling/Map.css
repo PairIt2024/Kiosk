@@ -1,17 +1,17 @@
 
 .container {
-  width: 84%;
-  height: 710px;
+  width: 85%;
+  height: 830px;
   display: flex;
-  left: 4%;
+  left: -2%;
   border: 10px solid #172f5e;
-  margin-right: 5%;
+  margin-right: 2%;
 }
 
 .start-button {
   width: 20%;
   height: 40px;
-  background-color: #172f5e;
+  background-color: hsl(220, 61%, 23%);
   font-size: larger;
   font-family: Tahoma, sans-serif;
   color: white;
@@ -58,6 +58,7 @@
 }
 
 .outercontainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,5 +94,14 @@
 } 
 
 
-
+.toggle-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  background-color: #172f5e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
 

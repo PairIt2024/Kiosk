@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
+import ClassPopup from '../Components/ClassPopup';  
 import DirectionsPopup from "../Components/Directions";
 import Events from "./Events/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
@@ -25,9 +26,10 @@ export default function Map() {
   const routeLayerId = "route-layer";
 
   //testing building name
-  const [buildingName, setBuildingName] = useState("swenson gate");
+  const [buildingName, setBuildingName] = useState("MLK Library");
 
   const [isShrinking, setIsShrinking] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
@@ -42,7 +44,7 @@ export default function Map() {
       style: "mapbox://styles/mapbox/streets-v12",
 
       center: [-121.8811, 37.3352],
-      zoom: 16.3, // change zoom if location is parking garage
+      zoom: 16.5, // change zoom if location is parking garage
       bearing: -30.5,
       dragPan: false,
       scrollZoom: false,
@@ -159,7 +161,7 @@ export default function Map() {
 
     //reset map
     map.current.setCenter(initialCoordinates);
-    map.current.setZoom(16.3);
+    map.current.setZoom(16.5);
 
     //disable map interactions
     map.current.dragPan.disable();
@@ -192,6 +194,11 @@ export default function Map() {
       setIsShrinking(false);
     }, 800);
   };
+
+  const toggleDiv = () => {
+    setIsVisible(!isVisible); 
+};
+
 
   //uncomment when setting up a new kiosk in different location
   //get user's location only get location after a start button is pressed
@@ -255,19 +262,10 @@ export default function Map() {
   //     console.error("Error sending coordinates:", error);
   //   }
   // };
-  //sendUserCoordinates(bbcCoordinates);
 
   return (
     <div className="outercontainer">
       <div ref={mapContainer} className="container" />
-      {showPopup && (
-        <DirectionsPopup
-          directions={directions}
-          totalDistance={totalDistance}
-          totalDuration={totalDuration}
-          onClose={closePopup}
-        />
-      )}
 
       {showVoiceRecord ? (
         <VoiceRecord />
@@ -282,6 +280,13 @@ export default function Map() {
           START
         </button>
       )}
+
+      <button className="toggle-button" onClick={toggleDiv}>
+        {isVisible ? "Hide Classes Popup" : "Show Classes Popup"}
+      </button>
+
+      {/* The sliding box div */}
+      <ClassPopup isVisible={isVisible} toggleVisibility={toggleDiv} />
 
       {/* test to get route to a building */}
       <button onClick={handleGetRoute}>Get Route to {buildingName}</button>

@@ -4,6 +4,7 @@ import EventTitle from "../Components/EventTitle";
 import Events from "../Components/Events/Events";
 import "../Styling/Home.css";
 
+
 export default function Home() {
   return (
     <div className="home-container">
