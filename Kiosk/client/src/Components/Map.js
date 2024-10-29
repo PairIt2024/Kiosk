@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import VoiceRecord from "../Components/VoiceRecord";
-import DirectionsPopup from "../Components/Directions.js";
-import Events from "../Components/Events"; // Import the Events component
+import DirectionsPopup from "../Components/Directions";
+import Events from "./Events/Events"; // Import the Events component
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,7 +9,6 @@ import "../Styling/Map.css";
 
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
-
 export default function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
