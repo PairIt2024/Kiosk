@@ -7,6 +7,7 @@ import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../Styling/Map.css";
+import QRCode from "../Components/QRCode";
 
 //mapbox token
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -19,10 +20,8 @@ export default function Map() {
   const [directions, setDirections] = useState([]);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
-  //const [currentlocation, setCurrentLocation] = useState(false);
   const [showVoiceRecord, setShowVoiceRecord] = useState(false);
   const inactivityTimeout = useRef(null);
-  //const [userCoordinates, setUserCoordinates] = useState(null);
   const routeLayerId = "route-layer";
 
   //testing building name
@@ -34,6 +33,9 @@ export default function Map() {
   //coords of SJSU campus
   const initialCoordinates = [-121.8811, 37.3352];
   const bbcCoordinates = [-121.8787279, 37.336733];
+
+  // store the lat lng coordinates for the QR code
+  const [qrCoordinates, setQrCoordinates] = useState({ latitude: null, longitude: null });
 
   useEffect(() => {
     if (map.current) return;
@@ -121,6 +123,11 @@ export default function Map() {
       setTotalDuration(totalDuration);
 
       setShowPopup(true);
+
+      // Set the coordinates for the QR code
+      const [longitude, latitude] = routeData[0];
+      setQrCoordinates({ latitude, longitude });
+
     } catch (error) {
       console.error("Error fetching route:", error);
     }
@@ -169,7 +176,6 @@ export default function Map() {
     map.current.keyboard.disable();
     map.current.touchZoomRotate.disable();
 
-    //setCurrentLocation(false);
     setShowVoiceRecord(false);
     resetInactivityTimer();
   };
@@ -195,9 +201,7 @@ export default function Map() {
 
   const toggleDiv = () => {
     setIsVisible(!isVisible); 
-};
-
-
+  };
 
   return (
     <div className="outercontainer">
@@ -226,6 +230,11 @@ export default function Map() {
 
       {/* test to get route to a building */}
       <button onClick={handleGetRoute}>Get Route to {buildingName}</button>
+
+      {/* display  QRCode component with the lat lng coords */}
+      {qrCoordinates.latitude && qrCoordinates.longitude && (
+        <QRCode latitude={qrCoordinates.latitude} longitude={qrCoordinates.longitude} />
+      )}
     </div>
   );
 }
