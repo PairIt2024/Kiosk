@@ -3,6 +3,8 @@ import MicIcon from "@mui/icons-material/Mic";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import "../Styling/VoiceRecord.css";
 import axios from "axios";
+import ClassPopup from "./ClassPopup";
+import { set } from "mongoose";
 
 export default function VoiceRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -11,6 +13,10 @@ export default function VoiceRecord() {
   const mediaRecorderRef = useRef(null);
   const audioChunks = useRef([]);
   const recognitionRef = useRef(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [transcriptResults, setTranscriptResults] = useState([]);
+  const [finalClasses, setFinalClasses] = useState([]); 
+
 
   useEffect(() => {
     const SpeechRecognition =
@@ -96,10 +102,50 @@ export default function VoiceRecord() {
         }
       );
       console.log("API response:", response.data);
+      const classIds = extractIds(response.data);
+      const classes = convertTranscriptToClasses(classIds);
+      setTranscriptResults(classes);
     } catch (error) {
       console.error("Error sending transcript to API:", error);
     }
   };
+
+  const extractIds = (response) => {
+    // Split the response by line breaks and map the result to extract only the ID portion
+    return response
+      .split('\n') // split by new line
+      .filter((line) => line.includes('.')) // keep only lines with ids
+      .map((line) => line.split('. ')[1]) // extract the ID part
+      .filter((id) => id); // remove any undefined or empty entries
+  };
+  
+
+  const convertTranscriptToClasses = async (classIds) => {
+    try {
+      console.log(classIds);
+  
+      if (classIds.length === 0) {
+        console.log("No valid class IDs found.");
+        return []; // Return an empty array or handle accordingly
+      }
+  
+      console.log("Valid Class IDs:", classIds);
+      const url = `http://localhost:5001/courses/classes/byIds?ids=${classIds.join(",")}`;
+      
+      const response = await axios.get(url);
+      console.log("Classes found:", response.data);
+      if (response.data.length === 0) {
+        console.log("No classes found for the provided IDs.");
+        return [];
+      }
+      setShowPopup(true);
+      setFinalClasses(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error converting transcript to classes:", error);
+    }
+  };
+  
 
   return (
     <div className="voice-recorder-container">
@@ -116,8 +162,12 @@ export default function VoiceRecord() {
         />
       </div>
 
-      {/* {audioURL && <audio src={audioURL} controls />} debugging and downloading the audio */}
-      {/* {transcript && <p>Transcript: {transcript}</p>} */}
+      {showPopup && (
+        <ClassPopup isVisible={showPopup}
+        toggleVisibility={()=> setShowPopup(false)}
+        classesData={finalClasses}
+        />
+      )}
     </div>
   );
 }

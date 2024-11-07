@@ -1,40 +1,9 @@
 import React, { useState, useRef } from "react";
 import "../Styling/ClassPopup.css";
 
-const classesData = [
-    {
-        name: "CS151 - Object-Oriented Programming",
-        time: "M/W 10:00 AM - 11:15 AM",
-        location: "BBC004",
-        professor: "Professor",
-    },
-    {
-        name: "CS157A - Database Management Systems",
-        time: "T/TH 1:30 PM - 2:45 PM",
-        location: "ENG210",
-        professor: "Professor",
-    },
-    {
-        name: "CS122 - Python Programming",
-        time: "T/TH 3:00 PM - 4:15 PM",
-        location: "MLK Library",
-        professor: "Professor",
-    },
-    {
-        name: "CS157A - Database Management Systems",
-        time: "T/TH 1:30 PM - 2:45 PM",
-        location: "ENG210",
-        professor: "Professor",
-    },
-    {
-        name: "CS122 - Python Programming",
-        time: "M/W 3:00 PM - 4:15 PM",
-        location: "MLK Library",
-        professor: "Professor",
-    },
-];
 
-const ClassPopup = ({ isVisible, toggleVisibility, getRoute }) => {
+
+const ClassPopup = ({ isVisible, toggleVisibility, getRoute, classesData=[] }) => {
     const popupRef = useRef(null);
     const [dragging, setDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -80,12 +49,19 @@ const ClassPopup = ({ isVisible, toggleVisibility, getRoute }) => {
                 {classesData.map((classItem, index) => (
                     <div className="class-item" key={index}>
                         <div className="class-details">
-                            <h3 className="class-title">{classItem.name}</h3>
-                            <p className="class-time">Time: {classItem.time}</p>
+                            <h3 className="class-title">{classItem.course_title}</h3>
+                            <p className="class-section">Section: {classItem.section}</p>
+                            <p className="class-number">Class Number: {classItem.class_number}</p>
+                            <p className="class-mode">Mode of Instruction: {classItem.mode_of_instruction}</p>
+                            <p className="class-units">Units: {classItem.units}</p>
+                            <p className="class-type">Class Type: {classItem.class_type}</p>
+                            <p className="class-days-times">Days/Times: {classItem.days} {classItem.times}</p>
+                            <p className="class-dates">Dates: {classItem.dates}</p>
+                            <p className="class-seats">Open Seats: {classItem.open_seats}</p>
+                            <p className="class-instructor">Instructor: {classItem.instructor}</p>
                             <p className="class-location">Location: {classItem.location}</p>
-                            <p className="class-details">Professor: {classItem.professor}</p>
-                            <button 
-                                className="get-route-button" 
+                            <button
+                                className="get-route-button"
                                 onClick={() => getRoute(classItem.location)}
                             >
                                 Get Route
